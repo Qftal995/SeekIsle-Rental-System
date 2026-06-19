@@ -1,0 +1,41 @@
+﻿package com.seekisle.commonsecurity.domain.dto;
+
+import lombok.Data;
+
+/**
+ * 用户生命周期上下文
+ */
+@Data
+public class LoginUserDTO {
+
+    /**
+     * 用户唯一标识
+     */
+    private String token;
+
+    /**
+     * 用户名id
+     */
+    private Long userId;
+
+    /**
+     * 用户来源
+     */
+    private String userFrom;
+
+    /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
+     * 登录时间
+     */
+    private Long loginTime;
+
+    /**
+     * 过期时间
+     */
+    private Long expireTime;
+
+}

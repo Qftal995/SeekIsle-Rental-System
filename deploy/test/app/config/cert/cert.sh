@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 #vi /lib/systemd/system/docker.service
 #--tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server-cert.pem --tlskey=/etc/docker/server-key.pem
@@ -8,7 +8,7 @@ PASSWORD="123456"
 COUNTRY="CN"
 STATE="ShanXi"
 CITY="XiAn"
-ORGANIZATION="bitejiuyeke"
+ORGANIZATION="jiuyeke"
 ORGANIZATIONAL_UNIT="Dev"
 EMAIL="123@139.com"
 

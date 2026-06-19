@@ -1,0 +1,19 @@
+﻿package com.seekisle.adminservice.user.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.seekisle.adminservice.user.domain.entity.SysUser;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+/**
+ * B端用户相关
+ */
+@Mapper
+public interface SysUserMapper extends BaseMapper<SysUser> {
+
+    SysUser selectByPhoneNumber(@Param("phoneNumber") String phoneNumber);
+
+    List<SysUser> selectList(SysUser sysUser);
+}

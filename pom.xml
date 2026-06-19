@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -8,19 +8,19 @@
         <version>3.3.3</version>
     </parent>
 
-    <groupId>com.bitejiuyeke</groupId>
-    <artifactId>bitehouse</artifactId>
+    <groupId>com.seekisle</groupId>
+    <artifactId>house</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>bite-common</module>
-        <module>bite-gateway</module>
-        <module>bite-admin</module>
-        <module>bite-file</module>
-        <module>bite-mstemplate</module>
-        <module>bite-portal</module>
-        <module>bite-chat</module>
+        <module>common</module>
+        <module>gateway</module>
+        <module>admin</module>
+        <module>file</module>
+        <module>mstemplate</module>
+        <module>portal</module>
+        <module>chat</module>
     </modules>
 
     <!--属性值-->
@@ -59,7 +59,7 @@
         <dockerregistry.url>registry.cn-chengdu.aliyuncs.com</dockerregistry.url>
         <dockerregistry.username>houyj1987@163.com</dockerregistry.username>
         <dockerregistry.password>admin@666777</dockerregistry.password>
-        <dockerregistry.namespace>bitehouse</dockerregistry.namespace>
+        <dockerregistry.namespace>house</dockerregistry.namespace>
         <docker.skip.push>true</docker.skip.push>
     </properties>
 

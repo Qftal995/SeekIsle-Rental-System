@@ -1,0 +1,30 @@
+﻿server:
+  port: 18080
+
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: ${RUN_ENV:dev}
+  cloud:
+    nacos:
+      discovery:
+        username: nacos
+        password: bite@123
+        namespace: house-${RUN_ENV:dev}
+        server-addr: ${NACOS_ADDR:localhost:8848}
+      config:
+        username: nacos
+        password: bite@123
+        namespace: house-${RUN_ENV:dev}
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        file-extension: yaml
+        # 共享配置
+        shared-configs:
+          - data-id: share-common-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+          - data-id: share-redis-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+logging:
+  pattern:
+    console: '[%thread] %-5level %logger{36} - %msg%n'

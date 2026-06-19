@@ -1,5 +1,5 @@
-version: '1.0'
-name: bitehouse
+﻿version: '1.0'
+name: house
 displayName: 生产部署流水线
 triggers:
   trigger: manual
@@ -40,16 +40,16 @@ stages:
               - ./deploy
           - name: portal
             path:
-              - /root/workspace/bitedu/bite-framework-java/bite-portal/bite-portal-service/target/bite-portal-service.jar
+              - /root/workspace/du/framework-java/portal/portal-service/target/portal-service.jar
           - name: gateway
             path:
-              - /root/workspace/bitedu/bite-framework-java/bite-gateway/target/bite-gateway.jar
+              - /root/workspace/du/framework-java/gateway/target/gateway.jar
           - name: file
             path:
-              - /root/workspace/bitedu/bite-framework-java/bite-file/bite-file-service/target/bite-file-service.jar
+              - /root/workspace/du/framework-java/file/file-service/target/file-service.jar
           - name: admin
             path:
-              - /root/workspace/bitedu/bite-framework-java/bite-admin/bite-admin-service/target/bite-admin-service.jar
+              - /root/workspace/du/framework-java/admin/admin-service/target/admin-service.jar
         settings: []
         caches:
           - ~/.m2
@@ -112,10 +112,10 @@ stages:
           - cd /data/deploy/prd/deploy/prd/vm2/app
           - docker compose -f docker-compose-app.yml down
           - rm -f /data/deploy/prd/deploy/prd/vm2/app/service/*/*.jar
-          - mv /data/deploy/prd/bite-admin-service.jar ./service/admin/
-          - mv /data/deploy/prd/bite-file-service.jar ./service/file/
-          - mv /data/deploy/prd/bite-gateway.jar ./service/gateway/
-          - mv /data/deploy/prd/bite-portal-service.jar ./service/portal
+          - mv /data/deploy/prd/admin-service.jar ./service/admin/
+          - mv /data/deploy/prd/file-service.jar ./service/file/
+          - mv /data/deploy/prd/gateway.jar ./service/gateway/
+          - mv /data/deploy/prd/portal-service.jar ./service/portal
           - 'docker compose -f docker-compose-app.yml build '
           - docker compose -f docker-compose-app.yml up -d
         notify: []
@@ -171,10 +171,10 @@ stages:
           - cd /data/deploy/prd/deploy/prd/vm1/app
           - docker compose -f docker-compose-app.yml down
           - rm -f /data/deploy/prd/deploy/prd/vm1/app/service/*/*.jar
-          - mv /data/deploy/prd/bite-admin-service.jar ./service/admin/
-          - mv /data/deploy/prd/bite-file-service.jar ./service/file/
-          - mv /data/deploy/prd/bite-gateway.jar ./service/gateway/
-          - mv /data/deploy/prd/bite-portal-service.jar ./service/portal
+          - mv /data/deploy/prd/admin-service.jar ./service/admin/
+          - mv /data/deploy/prd/file-service.jar ./service/file/
+          - mv /data/deploy/prd/gateway.jar ./service/gateway/
+          - mv /data/deploy/prd/portal-service.jar ./service/portal
           - 'docker compose -f docker-compose-app.yml build '
           - docker compose -f docker-compose-app.yml up -d
         notify: []

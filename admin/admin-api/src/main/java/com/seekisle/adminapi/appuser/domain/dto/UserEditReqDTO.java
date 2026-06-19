@@ -1,0 +1,29 @@
+﻿package com.seekisle.adminapi.appuser.domain.dto;
+
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * 用户编辑DTO
+ */
+@Data
+public class UserEditReqDTO implements Serializable {
+
+    /**
+     * 用户id
+     */
+    @NotNull(message = "用户id不能为空")
+    private Long userId;
+
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+
+    /**
+     * 用户头像
+     */
+    private String avatar;
+}
