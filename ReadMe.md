@@ -1,4 +1,66 @@
-### 版权说明
-本“  **比特就业课**  ”项目（以下简称“本项目”）的所有内容，包括但不限于文字、图片、音频、视频、软件、程序、数据库、设计、布局、界面等，均由本项目的开发者或授权方拥有版权。 我们鼓励个人学习者使用本项目进行学习和研究。在遵守相关法律法规的前提下，个人学习者可以下载、浏览、学习本项目的内容，并为了个人学习、研究或教学目的而使用其中的材料。 但请注意，  **未经我们明确授权，个人学习者不得将本项目的内容用于任何商业目的**  ，包括但不限于销售、转让、许可或以其他方式从中获利。此外，个人学习者也不得擅自修改、复制、传播、展示、表演或制作本项目内容的衍生作品。 任何未经授权的使用均属侵权行为，我们将依法追究法律责任。如果您希望以其他方式使用本项目的内容，包括但不限于引用、转载、摘录、改编等，请事先与我们取得联系，获取书面授权。 感谢您对“比特就业课”项目的关注与支持，我们将持续努力，为您提供更好的学习体验。 特此说明。 比特就业课版权所有方
-**对比特项目感兴趣，可以联系这个微信。**
-![img.png](img.png)
+# SeekIsle（寻屿居）
+
+Spring Cloud 微服务租房平台 — 房源搜索、即时通讯、小程序/管理端双端。
+
+## 技术栈
+
+| 层级 | 技术 |
+|------|------|
+| 框架 | Spring Boot 3.3.3 + Spring Cloud 2023.0.3 + Spring Cloud Alibaba 2023.0.1.2 |
+| 注册/配置 | Nacos 2.2.2 |
+| 网关 | Spring Cloud Gateway（Reactor Netty） |
+| 服务调用 | OpenFeign |
+| ORM | MyBatis Plus 3.5.7 |
+| 数据库 | MySQL 8.0 |
+| 缓存 | Redis + Redisson 3.29.0 + Caffeine 3.1.8 |
+| 消息队列 | RabbitMQ |
+| 鉴权 | JWT（JJWT 0.9.1，HS512） |
+| 即时通讯 | Jakarta WebSocket |
+| 对象存储 | Aliyun OSS 3.15.1 |
+| 短信 | Aliyun SMS 2.0.24 |
+
+## 微服务
+
+| 服务 | 端口 | 职责 |
+|------|------|------|
+| bite-gateway | 18080 | 统一入口、JWT 鉴权、白名单动态刷新 |
+| bite-admin | 18081 | 房源 CRUD、用户管理、字典/参数、策略模式筛选 |
+| bite-file | 18082 | OSS 前端直传签名 |
+| bite-portal | 18083 | C 端 BFF：首页、搜索/详情、登录/注册 |
+| bite-chat | 18084 | WebSocket + RabbitMQ 实时聊天 |
+| bite-mstemplate | 18085 | 消息模板 |
+
+## 本地运行
+
+### 中间件
+
+```bash
+docker compose -p bitehouse -f deploy/dev/app/docker-compose-mid.yml up -d
+```
+
+| 服务 | 端口 | 凭据 |
+|------|------|------|
+| MySQL 8.4 | 3306 | `bitedev` / `bite@123` |
+| Redis 7.0 | 6379 | `bite@123` |
+| RabbitMQ 3.12 | 5672 / 15672 | `bitejiuyeke` / `bite@123` |
+| Nacos 2.2.2 | 8848 | `nacos` / `bite@123` |
+
+### 启动顺序
+
+1. Nacos → 导入 `deploy/dev/res/sql/nacosdata.sql`
+2. 按序启动：gateway → admin → file → portal → chat → mstemplate
+3. 管理端前端：`npm run dev` → http://localhost:3000
+
+## 架构亮点
+
+- **网关鉴权**：GlobalFilter 拦截所有请求，白名单从 Nacos 动态读取，JWT 解析后 Redis 校验会话
+- **策略模式筛选**：房源多条件筛选用策略链 `IHouseFilter` + 排序工厂 `ISortStrategy`
+- **多级缓存**：Redis 城市房源映射 `house:list:{cityId}` + 房源详情 `house:{houseId}`，空值防穿透
+- **WebSocket 聊天**：`@ServerEndpoint` + ConcurrentHashMap 管理连接，RabbitMQ 异步投递离线消息
+- **Redisson 分布式锁**：定时任务房源状态扭转，看门狗自动续期
+- **OSS 前端直传**：服务端签发临时 Policy + Signature，前端直接上传
+
+## 前端
+
+- **管理端**：Vue 3 + Vite + Element Plus（`biteHouseAdmin-feature-house`）
+- **小程序端**：uni-app（`bitehousemp-develop`）
